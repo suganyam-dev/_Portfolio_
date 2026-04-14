@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suganya M — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdf8f2; --warm-white: #fffcf8; --sand: #e8ddd0;
+  --violet: #6b4fbb; --violet-light: #9b7de8; --deep: #1a1a2e;
+  --mid: #4a4460; --soft: #7a6e90; --accent: #b39ddb;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(26,26,46,0.98); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(155,125,232,0.2);
+  padding: 0 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 66px;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700;
+  color: #fff; letter-spacing: 0.5px; text-decoration: none;
+}
+.nav-logo span { color: var(--violet-light); }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+.nav-links li a {
+  font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  padding: 7px 14px; border-radius: 4px; display: block; position: relative;
+  transition: color 0.2s;
+}
+.nav-links li a::after {
+  content: ''; position: absolute; bottom: 2px; left: 50%; right: 50%;
+  height: 1px; background: var(--violet-light);
+  transition: left 0.25s, right 0.25s;
+}
+.nav-links li a:hover { color: #fff; }
+.nav-links li a:hover::after,
+.nav-links li a.active::after { left: 14px; right: 14px; }
+.nav-links li a.active { color: var(--violet-light); }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.nav-resume {
+  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  padding: 7px 16px; border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s;
+}
+.nav-resume:hover { color: #fff; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06); }
+.nav-cta {
+  font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--violet-light); border: 1px solid var(--violet);
+  padding: 8px 20px; border-radius: 3px;
+  text-decoration: none; background: transparent;
+  transition: all 0.22s;
+}
+.nav-cta:hover { background: var(--violet); color: #fff; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px; border: none; background: none;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: rgba(255,255,255,0.6); border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE MENU ── */
+.mobile-menu {
+  position: fixed; top: 66px; left: 0; right: 0; z-index: 99;
+  background: rgba(26,26,46,0.99);
+  border-top: 1px solid rgba(155,125,232,0.15);
+  padding: 16px 28px 24px;
+  display: none; flex-direction: column; gap: 0;
+  transform: translateY(-8px); opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); }
+.mobile-menu a {
+  font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--violet-light); }
+.mobile-menu .m-cta {
+  margin-top: 16px; color: var(--violet-light);
+  border: 1px solid var(--violet); border-radius: 3px;
+  text-align: center; padding: 13px;
+  border-bottom: 1px solid var(--violet);
+  transition: background 0.2s;
+}
+.mobile-menu .m-cta:hover { background: var(--violet); color: #fff; }
+
+/* ── HERO ── */
+.hero { display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; margin-top: 66px; }
+.hero-left { background: var(--deep); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; position: relative; min-height: calc(100vh - 66px); }
+.hero-left::after { content: ''; position: absolute; right: -60px; top: 0; width: 120px; height: 100%; background: var(--deep); clip-path: polygon(0 0, 50% 0, 100% 100%, 0 100%); z-index: 2; }
+.initials { font-family: 'Playfair Display', serif; font-size: 140px; font-weight: 900; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.07); position: absolute; bottom: 40px; right: -20px; pointer-events: none; z-index: 1; }
+.hero-tag { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--violet-light); border: 1px solid var(--violet); padding: 6px 14px; border-radius: 2px; margin-bottom: 32px; width: fit-content; animation: fadeUp 0.8s ease forwards; opacity: 0; }
+.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(42px, 5vw, 64px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 24px; white-space: nowrap; animation: fadeUp 0.8s 0.2s ease forwards; opacity: 0; }
+.hero-name span { color: var(--violet-light); }
+.hero-desc { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 380px; animation: fadeUp 0.8s 0.4s ease forwards; opacity: 0; }
+.hero-right { background: var(--warm-white); padding: 80px 80px 80px 100px; display: flex; flex-direction: column; justify-content: center; }
+.contact-block { animation: fadeUp 0.8s 0.6s ease forwards; opacity: 0; }
+.contact-block h3 { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--soft); margin-bottom: 28px; }
+.contact-item { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; text-decoration: none; color: var(--deep); transition: transform 0.2s ease; padding: 14px 18px; border: 1px solid var(--sand); border-radius: 6px; background: var(--cream); }
+.contact-item:hover { transform: translateX(6px); border-color: var(--violet); background: #fff; }
+.contact-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-icon svg { width: 18px; height: 18px; fill: #fff; }
+.contact-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--soft); display: block; }
+.contact-value { font-size: 14px; font-weight: 500; color: var(--deep); display: block; }
+
+/* ── SECTIONS ── */
+section { padding: 100px 80px; max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--violet); margin-bottom: 16px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 700; line-height: 1.1; margin-bottom: 60px; color: var(--deep); }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.about-text { font-size: 15px; line-height: 1.9; color: var(--mid); }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.stat-card { background: var(--warm-white); border: 1px solid var(--sand); padding: 28px 24px; border-radius: 8px; transition: border-color 0.3s; }
+.stat-card:hover { border-color: var(--violet); }
+.stat-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: var(--violet); line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 12px; color: var(--soft); letter-spacing: 1px; }
+
+/* ── SKILLS DARK ── */
+.exp-section { background: var(--deep); padding: 100px; max-width: 100%; margin: 0; }
+.exp-section .section-title { color: #fff; }
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1100px; margin: 0 auto; }
+.exp-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 36px; position: relative; transition: border-color 0.3s, background 0.3s; }
+.exp-card:hover { border-color: var(--violet); background: rgba(107,79,187,0.07); }
+.exp-card::before { content: ''; position: absolute; top: 36px; left: 0; width: 3px; height: 36px; background: var(--violet); border-radius: 0 2px 2px 0; }
+.exp-duration { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--violet-light); margin-bottom: 12px; }
+
+/* ── PROJECTS ── */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.project-card { background: var(--warm-white); border: 1px solid var(--sand); border-radius: 8px; padding: 32px 28px; transition: all 0.3s; cursor: default; }
+.project-card:hover { transform: translateY(-6px); border-color: var(--violet); box-shadow: 0 20px 40px rgba(107,79,187,0.1); }
+.project-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--violet), var(--accent)); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 22px; }
+.project-name { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 10px; color: var(--deep); }
+.project-tech { font-size: 12px; color: var(--violet); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.project-bullets { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.project-bullets li { font-size: 12px; color: var(--soft); line-height: 1.6; padding-left: 14px; position: relative; }
+.project-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--violet); }
+
+/* ── EDUCATION ── */
+.edu-timeline { border-left: 2px solid var(--sand); padding-left: 40px; margin-left: 20px; }
+.edu-item { position: relative; margin-bottom: 48px; }
+.edu-item::before { content: ''; position: absolute; left: -49px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--violet); border: 3px solid var(--cream); box-shadow: 0 0 0 2px var(--violet); }
+.edu-year { font-size: 11px; letter-spacing: 2px; color: var(--violet); text-transform: uppercase; margin-bottom: 8px; }
+.edu-degree { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 4px; color: var(--deep); }
+.edu-school { font-size: 14px; color: var(--soft); }
+.edu-score { display: inline-block; margin-top: 8px; font-size: 12px; background: var(--violet); color: #fff; padding: 3px 12px; border-radius: 100px; }
+
+/* ── CERTIFICATIONS ── */
+.certs-section { background: linear-gradient(135deg, #f0ebff, #fdf8f2); border-top: 1px solid var(--sand); border-bottom: 1px solid var(--sand); padding: 80px; }
+.certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto; }
+.cert-item { padding: 20px 24px; border-left: 3px solid var(--violet); background: #fff; border-radius: 0 6px 6px 0; font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+/* ── FOOTER ── */
+footer { background: var(--deep); padding: 60px 80px; text-align: center; }
+.footer-name { font-family: 'Playfair Display', serif; font-size: 32px; color: #fff; margin-bottom: 8px; }
+.footer-role { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--violet-light); margin-bottom: 32px; }
+.footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.footer-link { display: flex; align-items: center; gap: 8px; text-decoration: none; color: rgba(255,255,255,0.6); font-size: 13px; padding: 10px 20px; border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; transition: all 0.2s; }
+.footer-link:hover { color: #fff; border-color: var(--violet); background: rgba(107,79,187,0.15); }
+.footer-link svg { width: 16px; height: 16px; fill: currentColor; }
+.footer-copy { margin-top: 40px; font-size: 12px; color: rgba(255,255,255,0.3); }
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-resume { display: none; }
+  .hamburger { display: flex; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left::after { display: none; }
+  .hero-right { padding: 60px 40px; }
+  .hero-left { padding: 60px 40px; min-height: auto; }
+  .hero-name { white-space: normal; font-size: 38px; }
+  .about-grid, .exp-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
+  section, .exp-section, .certs-section, footer { padding: 60px 32px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Suganya<span>.</span>M</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="Suganya_M_Resume_FSD_JD.pdf" class="nav-resume" target="_blank">Resume</a>
+    <a href="mailto:suganyam@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
+  <button class="hamburger" id="menuBtn">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#certifications">Certifications</a>
+  <a href="mailto:suganyam@gmail.com" class="m-cta">Hire Me</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Open to Opportunities</div>
+    <h1 class="hero-name">Suganya <span>M.</span></h1>
+    <p class="hero-desc">Full Stack Developer with expertise in React.js, Java, and MySQL. Passionate about building responsive, performant web applications with clean, modern UI.</p>
+    <div class="initials">SM</div>
+  </div>
+  <div class="hero-right">
+    <div class="contact-block">
+      <h3>Get in touch</h3>
+      <a href="mailto:suganyam@gmail.com" class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <div><span class="contact-label">Email</span><span class="contact-value">suganyam@gmail.com</span></div>
+      </a>
+      <a href="tel:8667220591" class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+        <div><span class="contact-label">Phone</span><span class="contact-value">+91 8667220591</span></div>
+      </a>
+      <a href="https://github.com/suganyam-dev" target="_blank" class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg></div>
+        <div><span class="contact-label">GitHub</span><span class="contact-value">github.com/suganyam-dev</span></div>
+      </a>
+      <a href="https://www.linkedin.com/in/suganya-m-977471329" target="_blank" class="contact-item">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></div>
+        <div><span class="contact-label">LinkedIn</span><span class="contact-value">linkedin.com/in/suganya-m-977471329</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="section-label">About Me</div>
+  <div class="section-title">Building web experiences<br>with precision</div>
+  <div class="about-grid">
+    <div class="about-text">
+      Aspiring Full Stack Developer with a strong foundation in HTML, CSS, JavaScript, React.js, Java, and MySQL. Skilled in building responsive web applications with modern UI design and integrating REST APIs with CRUD operations. Strong understanding of OOP concepts, database management, and manual testing — eager to contribute to efficient and scalable application development.
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-number">3+</div><div class="stat-label">Projects Built</div></div>
+      <div class="stat-card"><div class="stat-number">94%</div><div class="stat-label">B.Sc. Score</div></div>
+      <div class="stat-card"><div class="stat-number">6+</div><div class="stat-label">Certifications</div></div>
+      <div class="stat-card"><div class="stat-number">20+</div><div class="stat-label">Test Scenarios</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="exp-section" id="skills">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label" style="color:var(--violet-light)">Expertise</div>
+    <div class="section-title">Technical Skills</div>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-duration">Frontend</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">HTML5</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">CSS3</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">JavaScript ES6</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">React.js</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Responsive Design</span>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-duration">Backend</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Java</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Spring Boot</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">JDBC</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">OOP</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">MySQL</span>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-duration">Testing</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Manual Testing</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">SDLC / STLC</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Test Case Design</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Regression Testing</span>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-duration">Tools</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">VS Code</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Git &amp; GitHub</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Eclipse</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">Spring Tool Suite</span>
+          <span style="padding:6px 14px;border:1px solid rgba(155,125,232,0.4);border-radius:100px;font-size:13px;color:rgba(255,255,255,0.75);">MySQL Workbench</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects" style="padding-top:100px;" class="reveal">
+  <div class="section-label">Portfolio</div>
+  <div class="section-title">Projects</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">🌤️</div>
+      <div class="project-name">Weather Application</div>
+      <div class="project-tech">React.js · OpenWeatherMap API</div>
+      <ul class="project-bullets">
+        <li>Real-time SPA using Fetch + Async/Await for live weather data.</li>
+        <li>React Hooks (useState, useEffect) for dynamic state management.</li>
+        <li>~30% UI responsiveness improvement; fully cross-browser compatible.</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🎓</div>
+      <div class="project-name">Student Management System</div>
+      <div class="project-tech">Java · MySQL · JDBC</div>
+      <ul class="project-bullets">
+        <li>Full CRUD app managing 100+ student records with MySQL via JDBC.</li>
+        <li>OOP principles — Encapsulation, Abstraction, Inheritance, Polymorphism.</li>
+        <li>Robust data validation, exception handling &amp; error recovery.</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🛒</div>
+      <div class="project-name">Amazon Mobile App – Testing</div>
+      <div class="project-tech">Manual Testing · Android</div>
+      <ul class="project-bullets">
+        <li>End-to-end manual testing of Amazon's Android app for real-world scenarios.</li>
+        <li>Created 20+ test scenarios for Login, Search, Cart &amp; Orders modules.</li>
+        <li>Functional, regression &amp; usability testing; documented defects and prepared test summary reports.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--warm-white);max-width:100%;padding:100px 80px;" class="reveal">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Academic</div>
+    <div class="section-title">Education</div>
+    <div class="edu-timeline">
+      <div class="edu-item">
+        <div class="edu-year">2021 – 2023</div>
+        <div class="edu-degree">M.Sc. Mathematics</div>
+        <div class="edu-school">Thiagarajar College</div>
+        <span class="edu-score">89%</span>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2018 – 2021</div>
+        <div class="edu-degree">B.Sc. Mathematics</div>
+        <div class="edu-school">Thiagarajar College</div>
+        <span class="edu-score">94%</span>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2017 – 2018</div>
+        <div class="edu-degree">Higher Secondary(HSC)</div>
+        <div class="edu-school">Nirmala Girls Higher Secondary School</div>
+        <span class="edu-score">97%</span>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2015 – 2016</div>
+        <div class="edu-degree">Secondary School(SSLC)</div>
+        <div class="edu-school">Nirmala Girls Higher Secondary School</div>
+        <span class="edu-score">94%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<div class="certs-section" id="certifications">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Achievements</div>
+    <div class="section-title" style="margin-bottom:40px;">Certifications &amp; Awards</div>
+    <div class="certs-grid reveal">
+      <div class="cert-item">Fullstack Development— ScopeTech Software Solutions<br><small style="color:#999;">Core Java, OOP, JDBC, Collections, Multithreading</small></div>
+      <div class="cert-item">SQL Essentials: Beginner to Pro — Udemy<br><small style="color:#999;">Joins, Subqueries, Aggregate Functions</small></div>
+      <div class="cert-item">Software Testing Bootcamp 2025 — Udemy<br><small style="color:#999;">SDLC, STLC, Test Case Design, Test Execution</small></div>
+      <div class="cert-item">Diploma in Mathematical Software &amp; R Programming<br><small style="color:#999;">Data Analysis, Statistical Computing</small></div>
+      <div class="cert-item">Typewriting — Tamil &amp; English<br><small style="color:#999;">First Class with Distinction</small></div>
+      <div class="cert-item" style="background:linear-gradient(135deg,#f0ebff,#fff);border-left-color:#9b7de8;">🥇 Gold Medal — Academic Excellence<br><small style="color:#7a6e90;">B.Sc. Mathematics · 2018–2021</small></div>
+      <div class="cert-item" style="background:linear-gradient(135deg,#f0ebff,#fff);border-left-color:#9b7de8;">🏆 Best Student Award<br><small style="color:#7a6e90;">M.Sc. Mathematics · 2021–2023</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Suganya M</div>
+  <div class="footer-role">Full Stack Developer · Fresher</div>
+  <div class="footer-links">
+    <a href="mailto:suganyam@gmail.com" class="footer-link">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Email Me
+    </a>
+    <a href="https://github.com/suganyam-dev" target="_blank" class="footer-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/suganya-m-977471329" target="_blank" class="footer-link">
+      <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg> LinkedIn
+    </a>
+  </div>
+  <div class="footer-copy">&copy; 2025 Suganya M &middot; All rights reserved</div>
+</footer>
+
+<script>
+  /* ── Hamburger toggle ── */
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  /* Close mobile menu on link click */
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menuBtn.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  /* ── Smooth scroll ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ── Active nav link on scroll ── */
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links li a');
+
+  const activateLink = () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  };
+  window.addEventListener('scroll', activateLink);
+  activateLink();
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
