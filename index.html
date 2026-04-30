@@ -1,0 +1,1461 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Suganya M – Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0f0c1a;
+    --surface: #f5f0e8;
+    --card: #201d3d;
+    --card-beige: #ede8df;
+    --border: #342f5e;
+    --border-beige: #d0c8b8;
+    --accent: #a78bfa;
+    --accent2: #60a5fa;
+    --accent-dark: #7c5cbf;
+    --text: #f0eeff;
+    --text-dark: #1a1630;
+    --muted: #9b96c8;
+    --muted-dark: #5a5278;
+    --heading-font: 'Playfair Display', serif;
+    --body-font: 'DM Sans', sans-serif;
+    --mono-font: 'DM Mono', monospace;
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  html { 
+  scroll-behavior: smooth; 
+}
+ 
+section { 
+  scroll-margin-top: 100px; 
+}
+ 
+  section { scroll-margin-top: 80px; }
+ 
+  body {
+    background: #0f0c1a;
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--body-font);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+ 
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+ 
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 4rem;
+    background: rgba(15,12,26,0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+ 
+  .nav-logo {
+    font-family: var(--heading-font);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+ 
+  .nav-links {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+  }
+ 
+  .nav-links a {
+    font-family: var(--mono-font);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.45rem 0.9rem;
+    border-radius: 4px;
+    transition: color 0.25s, background 0.25s;
+  }
+ 
+  .nav-links a:hover {
+    color: var(--accent);
+    background: rgba(167,139,250,0.08);
+  }
+ 
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+ 
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+ 
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+ 
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(167,139,250,0.13) 0%, transparent 70%);
+    top: -100px; right: -200px;
+    pointer-events: none;
+  }
+ 
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%);
+    bottom: -50px; left: -100px;
+    pointer-events: none;
+  }
+ 
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .hero-content { flex: 1; max-width: 580px; }
+ 
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--mono-font);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 3px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+ 
+  .hero-name {
+    font-family: var(--heading-font);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--text);
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+ 
+  .hero-name span { color: var(--accent); }
+ 
+  .hero-role {
+    font-family: var(--mono-font);
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin: 1.2rem 0 1.8rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+ 
+  .hero-desc {
+    font-size: 1.05rem;
+    color: #c5c0e8;
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+ 
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+ 
+  .btn-primary {
+    background: var(--accent);
+    color: #0f0c1a;
+    font-family: var(--mono-font);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+ 
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(167,139,250,0.35);
+  }
+ 
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-family: var(--mono-font);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+ 
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+ 
+  /* HERO CONTACT PANEL */
+  .hero-right {
+    flex-shrink: 0;
+    width: 300px;
+    animation: fadeUp 0.8s 0.4s ease both;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .hero-right-title {
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+ 
+  .hero-contact-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+ 
+  .hero-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+  }
+ 
+  .hero-contact-item:hover {
+    border-color: var(--accent);
+    background: rgba(167,139,250,0.06);
+    transform: translateX(4px);
+  }
+ 
+  .hero-contact-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: rgba(167,139,250,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+ 
+  .hero-contact-info { display: flex; flex-direction: column; }
+ 
+  .hero-contact-label {
+    font-family: var(--mono-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.22rem;
+  }
+ 
+  .hero-contact-value {
+    font-size: 0.8rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+ 
+  .hero-location {
+    margin-top: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--mono-font);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+ 
+  .hero-location span { color: var(--accent); }
+ 
+  /* SECTIONS */
+  section { padding: 6rem 4rem; position: relative; z-index: 1; }
+ 
+  .section-label {
+    font-family: var(--mono-font);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+ 
+  .section-title {
+    font-family: var(--heading-font);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+ 
+  .section-divider {
+    width: 48px; height: 2px;
+    background: var(--accent);
+    margin-bottom: 3rem;
+    margin-top: -2.4rem;
+  }
+ 
+  /* SKILLS (beige) */
+  #skills {
+    background: #f5f0e8;
+    color: var(--text-dark);
+  }
+ 
+  #skills .section-label { color: var(--accent-dark); }
+  #skills .section-title { color: var(--text-dark); }
+  #skills .section-divider { background: var(--accent-dark); }
+ 
+  #skills .skill-card {
+    background: #fff8f0;
+    border-color: var(--border-beige);
+    color: var(--text-dark);
+  }
+ 
+  #skills .skill-card:hover { border-color: var(--accent-dark); }
+  #skills .skill-card-title { color: var(--accent-dark); }
+ 
+  #skills .skill-tag {
+    color: var(--muted-dark);
+    background: rgba(0,0,0,0.04);
+    border-color: var(--border-beige);
+  }
+ 
+  #skills .skill-card:hover .skill-tag {
+    color: var(--text-dark);
+    border-color: rgba(124,92,191,0.3);
+  }
+ 
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+ 
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+ 
+  .skill-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+  .skill-card:hover::before { transform: scaleX(1); }
+ 
+  .skill-card-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+ 
+  .skill-card-title {
+    font-family: var(--heading-font);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
+ 
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+ 
+  .skill-tag {
+    font-family: var(--mono-font);
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem;
+    border-radius: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+ 
+  .skill-card:hover .skill-tag { color: var(--text); border-color: rgba(167,139,250,0.3); }
+ 
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+ 
+  .project-logo-banner {
+    width: 100%;
+    height: 130px;
+    border-radius: 10px;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .project-logo-banner svg { position: relative; z-index: 1; }
+ 
+  .banner-weather  { background: linear-gradient(135deg, #1e2a4a 0%, #2a3a6a 50%, #1a2440 100%); }
+  .banner-logicplay { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+  .banner-form     { background: linear-gradient(135deg, #1a1a3a 0%, #2a2050 50%, #151428 100%); }
+  .banner-student  { background: linear-gradient(135deg, #1a2d1a 0%, #1e3d2a 50%, #162415 100%); }
+  .banner-testing  { background: linear-gradient(135deg, #2d1a2d 0%, #3d1e3a 50%, #241524 100%); }
+  .banner-movie    { background: linear-gradient(135deg, #1a0a0a 0%, #2d1010 50%, #3a1a1a 100%); }
+ 
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+ 
+  .project-num {
+    font-family: var(--heading-font);
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(167,139,250,0.07);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+ 
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+ 
+  .stack-tag {
+    font-family: var(--mono-font);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--accent2);
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+  }
+ 
+  .project-title {
+    font-family: var(--heading-font);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+ 
+  .project-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+ 
+  .project-points li {
+    font-size: 0.88rem;
+    color: #aba6d0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+ 
+  .project-points li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+ 
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono-font);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 1.2rem;
+    transition: gap 0.2s;
+  }
+ 
+  .project-link:hover { gap: 0.7rem; }
+ 
+  /* EDUCATION (beige) */
+  #education {
+    background: #f5f0e8;
+    color: var(--text-dark);
+  }
+ 
+  #education .section-label { color: var(--accent-dark); }
+  #education .section-title { color: var(--text-dark); }
+  #education .section-divider { background: var(--accent-dark); }
+ 
+  /* HORIZONTAL TIMELINE */
+  .edu-timeline {
+    position: relative;
+    padding: 0 1rem 2rem;
+    overflow-x: auto;
+  }
+ 
+  .edu-spine {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 0 0.5rem;
+  }
+ 
+  .edu-spine-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent-dark);
+    border: 3px solid #f5f0e8;
+    box-shadow: 0 0 0 4px rgba(124,92,191,0.25);
+    flex-shrink: 0;
+    z-index: 2;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+ 
+  .edu-spine-line {
+    flex: 1;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-dark), rgba(124,92,191,0.3));
+    min-width: 40px;
+  }
+ 
+  .edu-cards-row { display: flex; gap: 0; margin-top: 0; }
+ 
+  .edu-tl-item {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  .edu-tl-stem {
+    width: 2px; height: 24px;
+    background: rgba(124,92,191,0.4);
+  }
+ 
+  .edu-tl-card {
+    background: #fff8f0;
+    border: 1.5px solid var(--border-beige);
+    border-radius: 14px;
+    padding: 1.2rem 1.1rem;
+    width: calc(100% - 1.5rem);
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+ 
+  .edu-tl-item:hover .edu-tl-card {
+    border-color: var(--accent-dark);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 36px rgba(124,92,191,0.15);
+  }
+ 
+  .edu-tl-item:hover .edu-spine-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 7px rgba(124,92,191,0.18);
+  }
+ 
+  .edu-tl-year {
+    font-family: var(--mono-font);
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    background: rgba(124,92,191,0.1);
+    border: 1px solid rgba(124,92,191,0.25);
+    display: inline-block;
+    padding: 0.18rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 0.6rem;
+  }
+ 
+  .edu-tl-degree {
+    font-family: var(--heading-font);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.3rem;
+    line-height: 1.35;
+  }
+ 
+  .edu-tl-school {
+    font-size: 0.74rem;
+    color: var(--muted-dark);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+ 
+  .edu-tl-score {
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--accent-dark);
+    background: rgba(124,92,191,0.12);
+    border: 2px solid rgba(124,92,191,0.3);
+    border-radius: 8px;
+    padding: 0.1rem 0.7rem;
+  }
+ 
+  /* CERTIFICATIONS */
+  .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+ 
+  .cert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+ 
+  .cert-item:hover { border-color: var(--accent); transform: translateX(6px); }
+ 
+  .cert-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+ 
+  .cert-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+ 
+  .cert-source {
+    font-family: var(--mono-font);
+    font-size: 0.73rem;
+    color: var(--muted);
+  }
+ 
+  /* ACHIEVEMENTS (beige) */
+  #achievements {
+    background: #f5f0e8;
+    color: var(--text-dark);
+  }
+ 
+  #achievements .section-label { color: var(--accent-dark); }
+  #achievements .section-title { color: var(--text-dark); }
+  #achievements .section-divider { background: var(--accent-dark); }
+ 
+  #achievements .achieve-card {
+    background: #fff8f0;
+    border-color: var(--border-beige);
+  }
+ 
+  #achievements .achieve-card:hover { border-color: var(--accent-dark); }
+  #achievements .achieve-title { color: var(--accent-dark); }
+  #achievements .achieve-sub { color: var(--muted-dark); }
+ 
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+ 
+  .achieve-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+ 
+  .achieve-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+ 
+  .achieve-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+ 
+  .achieve-title {
+    font-family: var(--heading-font);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+ 
+  .achieve-sub { font-size: 0.83rem; color: var(--muted); }
+ 
+  /* CONTACT */
+  #contact { text-align: center; }
+ 
+  .contact-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+  }
+ 
+  .contact-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+ 
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.6rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+ 
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .contact-card-icon { font-size: 1.2rem; }
+ 
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono-font);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+ 
+  footer span { color: var(--accent); }
+ 
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+ 
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { flex-direction: column; align-items: flex-start; }
+    .hero-right { width: 100%; max-width: 500px; }
+    .hero-contact-panel { display: grid; grid-template-columns: 1fr 1fr; }
+  }
+ 
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: rgba(15,12,26,0.98);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      padding: 1rem 1.5rem;
+      gap: 0.2rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 0.78rem; padding: 0.6rem 0.9rem; }
+    .nav-hamburger { display: flex; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    .edu-tl-item { min-width: 160px; }
+    .edu-tl-card { padding: 1rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Suganya M</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certificates</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+ 
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+ 
+    <div class="hero-content">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1 class="hero-name">Suganya <span>M</span></h1>
+      <p class="hero-role">Java Developer||Full Stack Developer||React Js Developer </p>
+      <p class="hero-desc">
+        Aspiring Full Stack Developer with 6 live projects, a Gold Medal in Mathematics, and hands-on experience in Java, React.js, Spring Boot, and MySQL. Seeking Java / Full Stack roles.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+ 
+    <div class="hero-right">
+      <div class="hero-right-title">📬 Contact Details</div>
+      <div class="hero-contact-panel">
+        <a href="mailto:suganya.m13102000@gmail.com" class="hero-contact-item">
+          <div class="hero-contact-icon">✉️</div>
+          <div class="hero-contact-info">
+            <span class="hero-contact-label">Email</span>
+            <span class="hero-contact-value">suganya.m13102000@gmail.com</span>
+          </div>
+        </a>
+        <a href="tel:8667220591" class="hero-contact-item">
+          <div class="hero-contact-icon">📞</div>
+          <div class="hero-contact-info">
+            <span class="hero-contact-label">Phone</span>
+            <span class="hero-contact-value">+91 8667220591</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/suganya-m-977471329" target="_blank" class="hero-contact-item">
+          <div class="hero-contact-icon">🔗</div>
+          <div class="hero-contact-info">
+            <span class="hero-contact-label">LinkedIn</span>
+            <span class="hero-contact-value">suganya-m-977471329</span>
+          </div>
+        </a>
+        <a href="https://github.com/suganyam-dev" target="_blank" class="hero-contact-item">
+          <div class="hero-contact-icon">🐙</div>
+          <div class="hero-contact-info">
+            <span class="hero-contact-label">GitHub</span>
+            <span class="hero-contact-value">suganyam-dev</span>
+          </div>
+        </a>
+      </div>
+      <div class="hero-location">
+        <span>📍</span> Madurai, India
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label reveal">Technical Expertise</p>
+  <h2 class="section-title reveal">Skills & Stack</h2>
+  <div class="section-divider reveal"></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🎨</div>
+      <div class="skill-card-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript ES6</span>
+        <span class="skill-tag">React.js</span>
+        <span class="skill-tag">Responsive Design</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">JDBC</span>
+        <span class="skill-tag">Spring Boot</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🗄️</div>
+      <div class="skill-card-title">Database</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">SQL Queries</span>
+        <span class="skill-tag">Joins</span>
+        <span class="skill-tag">CRUD</span>
+        <span class="skill-tag">Subqueries</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🧪</div>
+      <div class="skill-card-title">Testing</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Manual Testing</span>
+        <span class="skill-tag">SDLC</span>
+        <span class="skill-tag">STLC</span>
+        <span class="skill-tag">Regression</span>
+        <span class="skill-tag">Functional</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🛠</div>
+      <div class="skill-card-title">Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Eclipse</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Spring Tool Suite</span>
+        <span class="skill-tag">MySQL Workbench</span>
+        <span class="skill-tag">MS Word</span>
+        <span class="skill-tag">MS Excel</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🤝</div>
+      <div class="skill-card-title">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Communication</span>
+        <span class="skill-tag">Teamwork</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Analytical Thinking</span>
+        <span class="skill-tag">Time Management</span>
+        <span class="skill-tag">Attention to Detail</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">What I've Built</p>
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="section-divider reveal"></div>
+  <div class="projects-grid">
+ 
+    <!-- 01 Weather App -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-weather">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="38" r="18" fill="#fbbf24" opacity="0.95"/>
+          <g stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+            <line x1="60" y1="12" x2="60" y2="6"/>
+            <line x1="60" y1="64" x2="60" y2="70"/>
+            <line x1="34" y1="38" x2="28" y2="38"/>
+            <line x1="86" y1="38" x2="92" y2="38"/>
+            <line x1="42" y1="20" x2="37" y2="15"/>
+            <line x1="78" y1="56" x2="83" y2="61"/>
+            <line x1="78" y1="20" x2="83" y2="15"/>
+            <line x1="42" y1="56" x2="37" y2="61"/>
+          </g>
+          <ellipse cx="130" cy="52" rx="38" ry="20" fill="white" opacity="0.9"/>
+          <ellipse cx="112" cy="55" rx="22" ry="16" fill="white" opacity="0.9"/>
+          <ellipse cx="148" cy="57" rx="20" ry="14" fill="white" opacity="0.9"/>
+          <circle cx="118" cy="42" r="18" fill="white" opacity="0.9"/>
+          <circle cx="138" cy="38" r="14" fill="white" opacity="0.9"/>
+          <g fill="#60a5fa" opacity="0.85">
+            <ellipse cx="108" cy="74" rx="2.5" ry="5"/>
+            <ellipse cx="122" cy="79" rx="2.5" ry="5"/>
+            <ellipse cx="136" cy="74" rx="2.5" ry="5"/>
+            <ellipse cx="150" cy="79" rx="2.5" ry="5"/>
+          </g>
+          <text x="168" y="32" font-size="10" fill="#61dafb" font-family="monospace" opacity="0.8">React</text>
+          <text x="168" y="46" font-size="9" fill="#a78bfa" font-family="monospace" opacity="0.6">REST API</text>
+        </svg>
+      </div>
+      <div class="project-num">01</div>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">JavaScript ES6</span>
+        <span class="stack-tag">REST API</span>
+        <span class="stack-tag">CSS3</span>
+      </div>
+      <h3 class="project-title">Weather Application</h3>
+      <ul class="project-points">
+        <li>Responsive SPA fetching real-time weather via OpenWeatherMap REST API with Fetch &amp; Async/Await.</li>
+        <li>React Hooks (useState, useEffect) for state management and dynamic UI updates.</li>
+        <li>Full mobile responsiveness via CSS Flexbox and media queries.</li>
+      </ul>
+      <a href="https://suganyam-dev.github.io/Weather_APP/" target="_blank" class="project-link">View Live ↗</a>
+    </div>
+ 
+    <!-- 02 LogicPlay -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-logicplay">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bulls & Cows grid -->
+          <rect x="18" y="18" width="80" height="55" rx="6" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity="0.5"/>
+          <!-- digit slots -->
+          <rect x="26" y="26" width="14" height="16" rx="3" fill="rgba(167,139,250,0.15)" stroke="#a78bfa" stroke-width="1" opacity="0.9"/>
+          <text x="33" y="38" font-size="10" fill="#a78bfa" font-family="monospace" text-anchor="middle" font-weight="bold">3</text>
+          <rect x="44" y="26" width="14" height="16" rx="3" fill="rgba(167,139,250,0.15)" stroke="#a78bfa" stroke-width="1" opacity="0.9"/>
+          <text x="51" y="38" font-size="10" fill="#a78bfa" font-family="monospace" text-anchor="middle" font-weight="bold">7</text>
+          <rect x="62" y="26" width="14" height="16" rx="3" fill="rgba(96,165,250,0.15)" stroke="#60a5fa" stroke-width="1" opacity="0.9"/>
+          <text x="69" y="38" font-size="10" fill="#60a5fa" font-family="monospace" text-anchor="middle" font-weight="bold">2</text>
+          <rect x="80" y="26" width="14" height="16" rx="3" fill="rgba(74,222,128,0.15)" stroke="#4ade80" stroke-width="1" opacity="0.9"/>
+          <text x="87" y="38" font-size="10" fill="#4ade80" font-family="monospace" text-anchor="middle" font-weight="bold">9</text>
+          <!-- bulls cows labels -->
+          <text x="26" y="55" font-size="7.5" fill="#4ade80" font-family="monospace" opacity="0.9">🐂 2 Bulls</text>
+          <text x="26" y="66" font-size="7.5" fill="#fbbf24" font-family="monospace" opacity="0.9">🐄 1 Cow</text>
+          <!-- Number Guess right panel -->
+          <rect x="112" y="18" width="90" height="55" rx="6" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.5"/>
+          <text x="157" y="34" font-size="13" fill="#60a5fa" font-family="monospace" text-anchor="middle" font-weight="bold" opacity="0.9">42</text>
+          <text x="157" y="48" font-size="7.5" fill="#4ade80" font-family="monospace" text-anchor="middle" opacity="0.85">↑ Go Higher!</text>
+          <text x="157" y="62" font-size="7" fill="#a78bfa" font-family="monospace" text-anchor="middle" opacity="0.7">Attempt 3/7</text>
+          <!-- game label -->
+          <text x="110" y="84" font-size="9" fill="#fbbf24" font-family="monospace" text-anchor="middle" opacity="0.8">LogicPlay</text>
+        </svg>
+      </div>
+      <div class="project-num">02</div>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">JavaScript ES6</span>
+        <span class="stack-tag">HTML5</span>
+        <span class="stack-tag">CSS3</span>
+      </div>
+      <h3 class="project-title">LogicPlay</h3>
+      <ul class="project-points">
+        <li>Web-based game app featuring Bulls &amp; Cows and Number Guess with real-time feedback and gameplay accuracy.</li>
+        <li>Frequency-based algorithm for digit comparison (Bulls &amp; Cows) and conditional "higher/lower" hints without double-counting errors.</li>
+        <li>Input validation, attempt tracking, and multiple test cases ensuring consistent results and smooth user interaction flow.</li>
+      </ul>
+      <a href="https://suganyam-dev.github.io/LogicPlay/" target="_blank" class="project-link">View Live ↗</a>
+    </div>
+ 
+    <!-- 03 Form Validation -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-form">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="45" y="10" width="130" height="70" rx="8" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity="0.5"/>
+          <rect x="58" y="22" width="94" height="13" rx="3" fill="none" stroke="#4ade80" stroke-width="1.5" opacity="0.9"/>
+          <text x="63" y="32" font-size="7.5" fill="#4ade80" font-family="monospace" opacity="0.8">Name</text>
+          <circle cx="142" cy="28" r="4" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+          <polyline points="140,28 142,30.5 145,25.5" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="58" y="40" width="94" height="13" rx="3" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.9"/>
+          <text x="63" y="50" font-size="7.5" fill="#60a5fa" font-family="monospace" opacity="0.8">Email</text>
+          <circle cx="142" cy="46" r="4" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
+          <polyline points="140,46 142,48.5 145,43.5" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="58" y="58" width="94" height="13" rx="3" fill="none" stroke="#f87171" stroke-width="1.5" opacity="0.9"/>
+          <text x="63" y="68" font-size="7.5" fill="#f87171" font-family="monospace" opacity="0.8">Password</text>
+          <line x1="141" y1="63" x2="145" y2="69" stroke="#f87171" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="145" y1="63" x2="141" y2="69" stroke="#f87171" stroke-width="1.8" stroke-linecap="round"/>
+          <text x="155" y="30" font-size="8" fill="#a78bfa" font-family="monospace" opacity="0.8">Regex</text>
+          <text x="152" y="43" font-size="8" fill="#60a5fa" font-family="monospace" opacity="0.7">useState</text>
+          <text x="155" y="56" font-size="8" fill="#4ade80" font-family="monospace" opacity="0.7">React</text>
+        </svg>
+      </div>
+      <div class="project-num">03</div>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">JavaScript ES6</span>
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS3</span>
+      </div>
+      <h3 class="project-title">Form Validation</h3>
+      <ul class="project-points">
+        <li>Responsive SPA with real-time form validation for Name, Email, and Password fields.</li>
+        <li>Regex-based validation, dynamic error messages, and disables submission until inputs are valid.</li>
+        <li>React Hooks (useState) for state management and controlled components.</li>
+      </ul>
+      <a href="https://suganyam-dev.github.io/Form_Validation/" target="_blank" class="project-link">View Live ↗</a>
+    </div>
+ 
+    <!-- 04 Student Management -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-student">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="110,14 148,33 110,52 72,33" fill="#a78bfa" opacity="0.9"/>
+          <polygon points="148,33 148,53 110,62 110,52" fill="#7c5cbf" opacity="0.85"/>
+          <line x1="148" y1="33" x2="160" y2="27" stroke="#a78bfa" stroke-width="2.2"/>
+          <circle cx="162" cy="26" r="3.5" fill="#fbbf24"/>
+          <ellipse cx="50" cy="38" rx="18" ry="7" fill="#4ade80" opacity="0.75"/>
+          <rect x="32" y="38" width="36" height="16" fill="#22c55e" opacity="0.6"/>
+          <ellipse cx="50" cy="54" rx="18" ry="7" fill="#4ade80" opacity="0.75"/>
+          <ellipse cx="170" cy="38" rx="18" ry="7" fill="#60a5fa" opacity="0.75"/>
+          <rect x="152" y="38" width="36" height="16" fill="#3b82f6" opacity="0.6"/>
+          <ellipse cx="170" cy="54" rx="18" ry="7" fill="#60a5fa" opacity="0.75"/>
+          <text x="90" y="80" font-size="10" fill="#f97316" font-family="monospace" font-weight="bold" opacity="0.9">Java + MySQL</text>
+        </svg>
+      </div>
+      <div class="project-num">04</div>
+      <div class="project-stack">
+        <span class="stack-tag">Java</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">JDBC</span>
+        <span class="stack-tag">OOP</span>
+      </div>
+      <h3 class="project-title">Student Management System</h3>
+      <ul class="project-points">
+        <li>Full CRUD application managing 100+ records with MySQL backend via JDBC.</li>
+        <li>OOP principles applied for modular, scalable, maintainable architecture.</li>
+        <li>Robust data validation, exception handling, and error recovery mechanisms.</li>
+      </ul>
+    </div>
+ 
+    <!-- 05 Movie Ticket Booking -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-movie">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cinema screen -->
+          <rect x="30" y="12" width="100" height="52" rx="5" fill="rgba(248,113,113,0.12)" stroke="#f87171" stroke-width="1.5" opacity="0.8"/>
+          <!-- Film strip left -->
+          <rect x="18" y="12" width="10" height="52" rx="2" fill="rgba(248,113,113,0.15)" stroke="#f87171" stroke-width="1" opacity="0.6"/>
+          <rect x="20" y="17" width="6" height="7" rx="1" fill="#f87171" opacity="0.5"/>
+          <rect x="20" y="28" width="6" height="7" rx="1" fill="#f87171" opacity="0.5"/>
+          <rect x="20" y="39" width="6" height="7" rx="1" fill="#f87171" opacity="0.5"/>
+          <rect x="20" y="50" width="6" height="7" rx="1" fill="#f87171" opacity="0.5"/>
+          <!-- Movie title on screen -->
+          <text x="80" y="34" font-size="8" fill="#fbbf24" font-family="monospace" text-anchor="middle" font-weight="bold" opacity="0.9">BLOCKBUSTER</text>
+          <text x="80" y="46" font-size="7" fill="#f87171" font-family="monospace" text-anchor="middle" opacity="0.7">10:30 AM | 14:00 | 19:00</text>
+          <!-- Seat grid -->
+          <g fill="rgba(167,139,250,0.4)" stroke="#a78bfa" stroke-width="0.8">
+            <rect x="34" y="54" width="8" height="6" rx="1"/>
+            <rect x="45" y="54" width="8" height="6" rx="1"/>
+            <rect x="56" y="54" width="8" height="6" rx="1" fill="rgba(248,113,113,0.5)" stroke="#f87171"/>
+            <rect x="67" y="54" width="8" height="6" rx="1"/>
+            <rect x="78" y="54" width="8" height="6" rx="1" fill="rgba(248,113,113,0.5)" stroke="#f87171"/>
+            <rect x="89" y="54" width="8" height="6" rx="1"/>
+            <rect x="100" y="54" width="8" height="6" rx="1"/>
+            <rect x="111" y="54" width="8" height="6" rx="1"/>
+          </g>
+          <!-- Right panel: ticket -->
+          <rect x="145" y="14" width="62" height="62" rx="6" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.6"/>
+          <line x1="145" y1="37" x2="207" y2="37" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+          <text x="176" y="30" font-size="8" fill="#fbbf24" font-family="monospace" text-anchor="middle" opacity="0.9">TICKET</text>
+          <text x="176" y="50" font-size="7" fill="#a78bfa" font-family="monospace" text-anchor="middle" opacity="0.85">Seat A3</text>
+          <text x="176" y="62" font-size="7" fill="#4ade80" font-family="monospace" text-anchor="middle" opacity="0.85">CONFIRMED</text>
+          <text x="110" y="84" font-size="8.5" fill="#f87171" font-family="monospace" text-anchor="middle" opacity="0.8">Console Java</text>
+        </svg>
+      </div>
+      <div class="project-num">05</div>
+      <div class="project-stack">
+        <span class="stack-tag">Java</span>
+        <span class="stack-tag">OOP</span>
+        <span class="stack-tag">Console App</span>
+      </div>
+      <h3 class="project-title">Movie Ticket Booking System</h3>
+      <ul class="project-points">
+        <li>Console-based movie ticket booking system allowing users to select movies, show timings, and book tickets.</li>
+        <li>Implemented seat selection, booking confirmation, and input validation with a menu-driven interface.</li>
+        <li>Displayed booking details and managed user interaction through structured menu navigation.</li>
+      </ul>
+    </div>
+ 
+    <!-- 06 Mobile App Testing -->
+    <div class="project-card reveal">
+      <div class="project-logo-banner banner-testing">
+        <svg width="220" height="90" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="84" y="6" width="34" height="62" rx="6" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+          <rect x="88" y="13" width="26" height="44" rx="3" fill="#2d1a2d" opacity="0.8"/>
+          <circle cx="101" cy="63" r="3" fill="#c084fc" opacity="0.7"/>
+          <circle cx="101" cy="35" r="13" fill="none" stroke="#4ade80" stroke-width="2.2"/>
+          <polyline points="94,35 99,41 109,29" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="44" cy="34" r="10" fill="none" stroke="#f87171" stroke-width="2"/>
+          <line x1="44" y1="21" x2="44" y2="17" stroke="#f87171" stroke-width="2"/>
+          <line x1="34" y1="27" x2="29" y2="23" stroke="#f87171" stroke-width="2"/>
+          <line x1="54" y1="27" x2="59" y2="23" stroke="#f87171" stroke-width="2"/>
+          <line x1="34" y1="41" x2="29" y2="45" stroke="#f87171" stroke-width="2"/>
+          <line x1="54" y1="41" x2="59" y2="45" stroke="#f87171" stroke-width="2"/>
+          <text x="37" y="37" font-size="8" fill="#f87171" font-family="monospace">BUG</text>
+          <text x="152" y="28" font-size="10" fill="#c084fc" font-family="monospace" opacity="0.9">SDLC</text>
+          <text x="152" y="43" font-size="10" fill="#60a5fa" font-family="monospace" opacity="0.8">STLC</text>
+          <text x="150" y="58" font-size="10" fill="#4ade80" font-family="monospace" opacity="0.8">✓ QA</text>
+        </svg>
+      </div>
+      <div class="project-num">06</div>
+      <div class="project-stack">
+        <span class="stack-tag">Manual Testing</span>
+        <span class="stack-tag">SDLC</span>
+        <span class="stack-tag">STLC</span>
+      </div>
+      <h3 class="project-title">Mobile App Testing</h3>
+      <ul class="project-points">
+        <li>End-to-end manual testing across Login, Search, Cart, and Orders modules (20+ scenarios).</li>
+        <li>Functional, regression, and usability testing with defect tracing reports.</li>
+        <li>Structured SDLC and STLC processes for quality-driven execution.</li>
+      </ul>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label reveal">Academic Background</p>
+  <h2 class="section-title reveal">Education</h2>
+  <div class="section-divider reveal"></div>
+ 
+  <div class="edu-timeline reveal">
+    <div class="edu-spine">
+      <div class="edu-spine-dot"></div>
+      <div class="edu-spine-line"></div>
+      <div class="edu-spine-dot"></div>
+      <div class="edu-spine-line"></div>
+      <div class="edu-spine-dot"></div>
+      <div class="edu-spine-line"></div>
+      <div class="edu-spine-dot"></div>
+    </div>
+    <div class="edu-cards-row">
+      <div class="edu-tl-item">
+        <div class="edu-tl-stem"></div>
+        <div class="edu-tl-card">
+          <div class="edu-tl-year">2021 – 2023</div>
+          <div class="edu-tl-degree">M.Sc. Mathematics</div>
+          <div class="edu-tl-school">Thiagarajar College, Madurai</div>
+          <div class="edu-tl-score">89%</div>
+        </div>
+      </div>
+      <div class="edu-tl-item">
+        <div class="edu-tl-stem"></div>
+        <div class="edu-tl-card">
+          <div class="edu-tl-year">2018 – 2021</div>
+          <div class="edu-tl-degree">B.Sc. Mathematics</div>
+          <div class="edu-tl-school">Thiagarajar College, Madurai</div>
+          <div class="edu-tl-score">94%</div>
+        </div>
+      </div>
+      <div class="edu-tl-item">
+        <div class="edu-tl-stem"></div>
+        <div class="edu-tl-card">
+          <div class="edu-tl-year">2017 – 2018</div>
+          <div class="edu-tl-degree">HSC (Class XII)</div>
+          <div class="edu-tl-school">Nirmala Girls HSS, Madurai</div>
+          <div class="edu-tl-score">94%</div>
+        </div>
+      </div>
+      <div class="edu-tl-item">
+        <div class="edu-tl-stem"></div>
+        <div class="edu-tl-card">
+          <div class="edu-tl-year">2015 – 2016</div>
+          <div class="edu-tl-degree">SSLC (Class X)</div>
+          <div class="edu-tl-school">Nirmala Girls HSS, Madurai</div>
+          <div class="edu-tl-score">97%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <p class="section-label reveal">Credentials</p>
+  <h2 class="section-title reveal">Certifications</h2>
+  <div class="section-divider reveal"></div>
+  <div class="cert-list">
+    <div class="cert-item reveal">
+      <div class="cert-icon">💻</div>
+      <div>
+        <div class="cert-name">Full Stack Java Developer Certification <span style="color:var(--accent);font-size:0.75rem;">(Ongoing)</span></div>
+        <div class="cert-source">Scopetech Software Solution · Java, Spring Boot, HTML5, CSS3, JavaScript, ReactJS, MySQL, JDBC, REST APIs</div>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">🗄️</div>
+      <div>
+        <div class="cert-name">SQL Essentials: Beginner to Pro</div>
+        <div class="cert-source">Udemy · SQL Queries, Joins, Subqueries, Aggregate Functions, Data Manipulation</div>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">🧪</div>
+      <div>
+        <div class="cert-name">Software Testing Bootcamp 2025</div>
+        <div class="cert-source">Udemy · SDLC, STLC, Test Case Design, Test Execution</div>
+      </div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-icon">📊</div>
+      <div>
+        <div class="cert-name">Diploma in Mathematical Software & R Programming</div>
+        <div class="cert-source">Data Analysis, Statistical Computing</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <p class="section-label reveal">Recognition</p>
+  <h2 class="section-title reveal">Achievements</h2>
+  <div class="section-divider reveal"></div>
+  <div class="achieve-grid">
+    <div class="achieve-card reveal">
+      <span class="achieve-icon">🥇</span>
+      <div class="achieve-title">Gold Medal</div>
+      <div class="achieve-sub">Academic Excellence · B.Sc. Mathematics (2018–2021)</div>
+    </div>
+    <div class="achieve-card reveal">
+      <span class="achieve-icon">🏅</span>
+      <div class="achieve-title">Best Student Award</div>
+      <div class="achieve-sub">M.Sc. Mathematics (2021–2023)</div>
+    </div>
+    <div class="achieve-card reveal">
+      <span class="achieve-icon">⌨️</span>
+      <div class="achieve-title">Typewriting – First Class with Distinction</div>
+      <div class="achieve-sub">Tamil Lower · Tamil Higher</div>
+    </div>
+    <div class="achieve-card reveal">
+      <span class="achieve-icon">⌨️</span>
+      <div class="achieve-title">Typewriting – First Class with Distinction</div>
+      <div class="achieve-sub">English Lower · English Higher</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal" style="text-align:center;">Let's Connect</p>
+  <h2 class="section-title reveal" style="text-align:center;">Get in Touch</h2>
+  <p class="contact-subtitle reveal">Open to Full Stack / Java Developer roles. Feel free to reach out!</p>
+  <div class="contact-cards reveal">
+    <a href="mailto:suganya.m13102000@gmail.com" class="contact-card">
+      <span class="contact-card-icon">✉️</span>
+      suganya.m13102000@gmail.com
+    </a>
+    <a href="tel:8667220591" class="contact-card">
+      <span class="contact-card-icon">📞</span>
+      8667220591
+    </a>
+    <a href="https://linkedin.com/in/suganya-m-977471329" target="_blank" class="contact-card">
+      <span class="contact-card-icon">🔗</span>
+      LinkedIn Profile
+    </a>
+    <a href="https://github.com/suganyam-dev" target="_blank" class="contact-card">
+      <span class="contact-card-icon">🐙</span>
+      github.com/suganyam-dev
+    </a>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  Designed & built with ♥ · <span>Suganya M</span> · Madurai, India · 2025
+</footer>
+ 
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+ 
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+ 
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const links    = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
